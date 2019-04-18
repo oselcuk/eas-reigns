@@ -1,0 +1,14 @@
+[
+    ["adviser", ["Swipe left or right", ["Ok...", 0, 0, 0], ["Wait...", 0, 0, 0]]],
+    ["adviser", ["You'll lose if gold or popularity is 0", ["Ok...", 0, 0, 0], ["Wait...", 0, 0, 0]]],
+    ["economic", ["Some guy is saying he can double our textile production and halve the cost", ["We don't need more textiles or money", -100, 25, 0], ["Invest in the guy's workshop", 50, -25, -50]]],
+    ["economic", ["Should we use steam engines to transport goods", ["No, keep having horses pull wagons", -25, 25, 0], ["Yes, let's move some merchandise", 50, -25, -50]]],
+    ["economic", ["All the trains going around are scaring the townsfolk", ["Keep the number of trains in check", -25, 25, 0], ["Build walls around tracks", 0, 25, -50]]],
+    ["economic", ["Moths seem to be turning black...", ["Maybe we should cut down on coal usage a little", -50, -50, 100], ["So?", 0, 0, 0]]],
+    ["economic", ["Should we regulate the number of steam boats?", ["Yes, they might be bad for the fish", -50, -25, 0], ["No, I want to see the rivers filled with them!", 25, 25, -50]]],
+    ["economic", ["They found some weird oil while digging for brine in America", ["I don't care unless you can cook with it", 0, -25, 0], ["Invest in oil", 100, 25, -50]]],
+    ["economic", ["Guy named Gesner says he invented something called Kerosene", ["We shall turn night into day with it!", 100, 50, -50], ["Ignore him and keep using more expensive whale oil and alcohol", -25, -50, 0]]],
+    ["economic", ["People are drinking petrol as medicine, and it seems to be working...", ["That's crazy talk! Have them stop!", 0, -50, 25], ["Bring me a pint too!", 25, 50, -50]]],
+    ["economic", ["Oil spills in lakes and rivers are killing fish", ["Regulate oil companies", -50, -50, 100], ["Plenty of fish in the sea", 0, 0, -100]]],
+    ["economic", ["Someone figured out how to use gasoline to power cars, should we prefer them over horses?", ["Finally we can stop having horse manure in the streets!", 50, 50, -50], ["But I like horses", -25, -25, 50]]]
+]
