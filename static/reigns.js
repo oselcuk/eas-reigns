@@ -78,6 +78,7 @@ canvas.onmousedown = function(e) {
     dragOriginX = e.screenX;
     requestAnimationFrame(animate);
 };
+canvas.ontouchstart = canvas.onmousedown;
 canvas.onmouseup = function(e) {
     dragOriginX = null;
     if (Math.abs(stage) >= 0.9) {
@@ -87,6 +88,7 @@ canvas.onmouseup = function(e) {
     stage = 0;
     requestAnimationFrame(animate);
 };
+canvas.ontouchend = canvas.onmouseup;
 canvas.onmousemove = function(e) {
     if (dragOriginX != null) {
         dragDeltaX = dragOriginX - e.screenX;
@@ -94,6 +96,7 @@ canvas.onmousemove = function(e) {
         requestAnimationFrame(animate);
     }
 };
+canvas.ontouchmove = canvas.onmousemove;
 
 var gameOver = false;
 function updateState() {
