@@ -27,7 +27,7 @@ let cards_data = [
     ["economic", ["People are drinking petrol as medicine, and it seems to be working...", ["That's crazy talk! Have them stop!", 0, -50, 25], ["Bring me a pint too!", 25, 50, -50]]],
     ["economic", ["Oil spills in lakes and rivers are killing fish", ["Regulate oil companies", -50, -50, 100], ["Plenty of fish in the sea", 0, 0, -100]]],
     ["economic", ["Someone figured out how to use gasoline to power cars, should we prefer them over horses?", ["Finally we can stop having horse manure in the streets!", 50, 50, -50], ["But I like horses", -25, -25, 50]]],
-    ["economic", ["Our scientists figured out that we can use natural gas instead of just falring it", ["Finally some good news!", 50, 50, 50], ["Finally some good news!", 50, 50, 50]]],
+    ["economic", ["Our scientists figured out that we can use natural gas instead of just flaring it", ["Finally some good news!", 50, 50, 50], ["Finally some good news!", 50, 50, 50]]],
     ["economic", ["Oil companies are getting pretty big, should we try to split them up?", ["Yes, let's bring some competition", -50, 25, 25], ["I kinda like their \"gifts\" though...", 100, -25, -50]]],
     ["economic", ["Our engineers found a way to enlarge oil wells with hydraulics to extract gas more cheaply", ["Let's get fracking!", 50, 25, -100], ["Maybe we should study its environmental effects first?", -50, -25, 50]]],
     ["economic", ["Is it getting a bit hot in here?", ["Just turn on the AC", 0, 0, -25], ["Have our scientists look into it", -50, 25, 50]]],
