@@ -1,17 +1,21 @@
-import flask
+from flask import Flask, request, render_template
 import sys
 
-app = flask.Flask(__name__)
+app = Flask(__name__)
 
 
 @app.route('/')
 def index():
-    return flask.render_template('index.html')
+    return render_template('index.html')
 
 
 @app.route('/move')
 def move():
-    print(flask.request.args.get('data'), file=sys.stderr)
+    data = request.args.get('data')
+    print(
+        'MOVE from:{} data:{}'.format(request.remote_addr, data),
+        file=sys.stderr
+    )
     return ('', 204)
 
 
