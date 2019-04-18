@@ -6,21 +6,38 @@ var cvWidth = canvas.width;
 var cvHeight = canvas.height;
 
 var currentCardImage = new Image();
-currentCardImage.onload = () => requestAnimationFrame(animate);
+let sessionId = makeid(10);
+currentCardImage.onload = () => {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open("GET", '/move?data=' + sessionId, true); // true for asynchronous
+    xmlHttp.send(null);
+    requestAnimationFrame(animate);
+};
 
 let cards_data = [
-    ["adviser", ["Swipe left or right", ["Ok...", 0, 0, 0], ["Wait...", 0, 0, 0]]],
-    ["adviser", ["You'll lose if gold or popularity is 0", ["Ok...", 0, 0, 0], ["Wait...", 0, 0, 0]]],
-    ["economic", ["Some guy is saying he can double our textile production and halve the cost", ["We don't need more textiles or money", -100, 25, 0], ["Invest in the guy's workshop", 50, -25, -50]]],
+    ["adviser", ["Swipe left or right to make a decision", ["Left", 0, 0, 0], ["Right...", 0, 0, 0]]],
+    ["adviser", ["Don't let your money or popularity reach 0. Good luck!", ["Ok...", 0, 0, 0], ["Wait...", 0, 0, 0]]],
+    ["economic", ["Some guy is saying he can double our textile production and halve the cost", ["We don't need more textiles or money", -100, 0, 0], ["Invest in the guy's workshop", 50, -0, -50]]],
     ["economic", ["Should we use steam engines to transport goods", ["No, keep having horses pull wagons", -25, 25, 0], ["Yes, let's move some merchandise", 50, -25, -50]]],
     ["economic", ["All the trains going around are scaring the townsfolk", ["Keep the number of trains in check", -25, 25, 0], ["Build walls around tracks", 0, 25, -50]]],
-    ["economic", ["Moths seem to be turning black...", ["Maybe we should cut down on coal usage a little", -50, -50, 100], ["So?", 0, 0, 0]]],
+    ["economic", ["Moths seem to be turning black...", ["Maybe we should cut down on coal usage a little", -50, -50, 50], ["So?", 0, 0, 0]]],
     ["economic", ["Should we regulate the number of steam boats?", ["Yes, they might be bad for the fish", -50, -25, 0], ["No, I want to see the rivers filled with them!", 25, 25, -50]]],
     ["economic", ["They found some weird oil while digging for brine in America", ["I don't care unless you can cook with it", 0, -25, 0], ["Invest in oil", 100, 25, -50]]],
     ["economic", ["Guy named Gesner says he invented something called Kerosene", ["We shall turn night into day with it!", 100, 50, -50], ["Ignore him and keep using more expensive whale oil and alcohol", -25, -50, 0]]],
     ["economic", ["People are drinking petrol as medicine, and it seems to be working...", ["That's crazy talk! Have them stop!", 0, -50, 25], ["Bring me a pint too!", 25, 50, -50]]],
     ["economic", ["Oil spills in lakes and rivers are killing fish", ["Regulate oil companies", -50, -50, 100], ["Plenty of fish in the sea", 0, 0, -100]]],
-    ["economic", ["Someone figured out how to use gasoline to power cars, should we prefer them over horses?", ["Finally we can stop having horse manure in the streets!", 50, 50, -50], ["But I like horses", -25, -25, 50]]]
+    ["economic", ["Someone figured out how to use gasoline to power cars, should we prefer them over horses?", ["Finally we can stop having horse manure in the streets!", 50, 50, -50], ["But I like horses", -25, -25, 50]]],
+    ["economic", ["Our scientists figured out that we can use natural gas instead of just falring it", ["Finally some good news!", 50, 50, 50], ["Finally some good news!", 50, 50, 50]]],
+    ["economic", ["Oil companies are getting pretty big, should we try to split them up?", ["Yes, let's bring some competition", -50, 25, 25], ["I kinda like their \"gifts\" though...", 100, -25, -50]]],
+    ["economic", ["Our engineers found a way to enlarge oil wells with hydraulics to extract gas more cheaply", ["Let's get fracking!", 50, 25, -100], ["Maybe we should study its environmental effects first?", -50, -25, 50]]],
+    ["economic", ["Is it getting a bit hot in here?", ["Just turn on the AC", 0, 0, -25], ["Have our scientists look into it", -50, 25, 50]]],
+    ["economic", ["National Academy of Science is saying they need money to research climate change", ["Eh maybe later", 0, -25, -100], ["Sure", -100, 25, 50]]],
+    ["economic", ["There has been more research on climate change, results ain't pretty (environment meter unlocked)", ["What...", 0, -25, 0], ["Who...", 0, -25, 0]]],
+    ["economic", ["NASA wants funding for some program called Global Habitability", ["We don't have money for that!", 25, -25, -25], ["Whatever they need", -50, 25, 25]]],
+    ["economic", ["Should we invest in renewable energies?", ["And lose out on the coal market? I think not!", 50, 50, -100], ["Our sponsors won't be happy about this...", -50, -25, 50]]],
+    ["economic", ["Intergovernmental Panel on Climate Change is warning us that global temparatures have risen around 1 F over the last century", ["Good, that should lower our heating costs", 0, 0, -100], ["Enact a carbon tax", 25, -100, 50]]],
+    ["economic", ["IPCC is 95% sure that humans are the \"dominant cause\" of global warming", ["I just don't think there is any sicence to support that, buddy", 0, -25, -50], ["Subsidize sustainable energy companies?", -150, 0, 50]]],
+    ["adviser", ["You've survived into the present day! Hopefully the game made you think about climate change a bit. Thanks for playing!", ["Take a short survey", 0, 0, 0], ["Start over", 0, 0, 0]]]
 ];
 
 let game_over = [
@@ -35,7 +52,6 @@ function getNextCard() {
     data = cards_data[year];
     currentCardImage.src = '/static/' + data[0] + '.png';
     return data[1];
-    // return [currentCardImage, ['buy more blankets', [-50, -50, 50]], ['invest in coal mines', [-25, 50, -50]]];
 }
 
 var currentCard = getNextCard();
@@ -81,7 +97,7 @@ canvas.onmousemove = function(e) {
 
 var gameOver = false;
 function updateState() {
-    let idx = stage < 0 ? 1 : 2;
+    let idx = stage > 0 ? 1 : 2;
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open("GET", '/move?data=' + stats + ',' + year + ',' + idx, true); // true for asynchronous
     xmlHttp.send(null);
@@ -98,6 +114,17 @@ function updateState() {
                 currentCard = [game_over[i], ["Start over", 0, 0, 0], ["Start over with environment info", 0, 0, 0]];
                 return;
             }
+        }
+        if (year == 16) {
+            show[2] = true;
+        }
+        if (year == 22) {
+            if (idx == 1) {
+                window.location.href = 'https://docs.google.com/forms/d/e/1FAIpQLScnW8aQZJfeSjLCsGHoK97TqshFx8GGdkfU535_7BrdspiEjA/viewform?usp=pp_url&entry.1285145035=' + sessionId;
+            }
+            gameOver = true;
+            updateState();
+            return;
         }
     }
     currentCard = getNextCard();
@@ -212,10 +239,21 @@ function animate() {
     ctx.drawImage(currentCardImage, x - stage * 40, y - mod);
     let tx = cvWidth / 2;
     let ty = 0.7 * cvHeight;
-    let ti = stage < 0 ? 1 : 2;
+    let ti = stage > 0 ? 1 : 2;
     let action = currentCard[ti];
     drawStroked(action[0], tx, ty, stage);
     drawHeader(action);
     drawStroked(currentCard[0], tx, cvHeight * 0.3, 1);
     drawFooter();
+}
+
+// taken from https://stackoverflow.com/a/1349426/1348374
+function makeid(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
